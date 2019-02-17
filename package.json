@@ -1,0 +1,14 @@
+{
+  "name": "failconf",
+  "version": "1.0.0",
+  "description": "presentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Malykh Sergey",
+  "license": "ISC",
+  "dependencies": {
+    "webslides": "^1.4.2"
+  }
+}
