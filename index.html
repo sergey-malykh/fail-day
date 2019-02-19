@@ -7,25 +7,758 @@
     <link rel="stylesheet" type='text/css' media='all' href="./node_modules/webslides/static/css/webslides.css">
     <!-- Optional - CSS SVG Icons (Font Awesome) -->
     <link rel="stylesheet" type="text/css" media="all" href="./node_modules/webslides/static/css/svg-icons.css">
+    <link rel="stylesheet" type="text/css" media="all" href="styles.css">
+    <link rel="stylesheet" type="text/css" media="all" href="./highlight/styles/vs.css">
 </head>
 <body>
-    <article id="webslides">
-        <section>
-            <h1>Slide 1</h1>
-        </section>
-        <section class="bg-black aligncenter">
-            <!-- .wrap = container 1200px -->
-            <div class="wrap">
-                <h1>Slide 2</h1>
+<article id="webslides">
+    <section>
+        <span class="background-left-bottom" style="background-image: url('./img/title.jpg')"></span>
+    </section>
+    <section>
+        <header>
+            <h2>Типичный интерфейс реестра</h2>
+        </header>
+        <div class="wrap">
+            <figure>
+                <img src="./img/showcase.JPG" alt="Витрина реестра записей">
+            </figure>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Типичный интерфейс реестра</h2>
+        </header>
+        <div class="wrap">
+            <figure>
+                <img src="./img/view.JPG" alt="Просмотр записи реестра">
+            </figure>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Типичный интерфейс реестра</h2>
+        </header>
+        <div class="wrap">
+            <figure>
+                <img src="./img/edit.JPG" alt="Редактирование записи реестра">
+            </figure>
+        </div>
+    </section>
+    <section>
+        <div class="wrap size-50">
+            <ul class="flexblock features">
+                <li>
+                    <h2>
+                        <svg class="fa-clock-o">
+                            <use xlink:href="#fa-clock-o"></use>
+                        </svg>
+                        Очень сжатые сроки
+                    </h2>
+                </li>
+                <li>
+                    <h2>
+                        <svg class="fa-question">
+                            <use xlink:href="#fa-question"></use>
+                        </svg>
+                        Полное отсутствие опыта в Angular
+                    </h2>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Основные проблемы</h2>
+        </header>
+        <div class="wrap">
+            <h3>Работа с большими формами</h3>
+            <div class="toc">
+                <ol class="text-intro">
+                    <li>Различные модели на сервере и клиенте</li>
+                    <li>Отсутствие типизации реактивных форм</li>
+                    <li>Управление состоянием контролов</li>
+                    <li>Валидация</li>
+                </ol>
             </div>
-        </section>
-    </article>
+            <hr>
 
-    <script src="./node_modules/webslides/static/js/webslides.js"></script>
-    <script>
-        window.ws = new WebSlides();
-    </script>
-    <!-- OPTIONAL - svg-icons.js (fontastic.me - Font Awesome as svg icons) -->
-    <script defer src="./node_modules/webslides/static/js/svg-icons.js"></script>
+            <h3>Большие компоненты</h3>
+            <div class="toc">
+                <ol class="text-intro">
+                    <li>Сложность в поддержке</li>
+                    <li>Повторное использование почти невозможно</li>
+                    <li>Дублирование кода</li>
+                </ol>
+            </div>
+            <hr>
+
+            <h3>Организация модулей реестров</h3>
+            <div class="toc">
+                <ol class="text-intro">
+                    <li>Большие бандлы</li>
+                    <li>Загрузка клиентом неиспользуемой функциональности</li>
+                    <li>Дублирование кода</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Работа с большими формами</h2>
+            <p class="text-context">Различные модели на сервере и клиенте</p>
+        </header>
+        <div class="wrap">
+            <div class="content-left">
+                <pre class="javascript">
+{
+  contacts: [ { idType: number } ]
+}</pre>
+            </div>
+            <div class="content-left">
+                <pre class="javascript">
+{
+  phones: magic(contacts),
+  faxes: magic(contacts),
+  emails: magic(contacts),
+  websites: magic(contacts)
+}</pre>
+            </div>
+        </div>
+        <div class="wrap" style="margin-top: 50px">
+            <div class="content-left">
+                <pre class="javascript">
+{
+  cutAccredScopeChanges: [ { idBasis: number } ],
+  terminationChanges: [ { idBasis: number } ]
+}</pre>
+            </div>
+            <div class="content-left">
+                <pre class="javascript">
+{
+  stateServices: [ { changeTypeId: number } ],
+  activityControl: [ { changeTypeId: number } ]
+}</pre>
+            </div>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Работа с большими формами</h2>
+            <p class="text-context">Отсутствие типизации реактивных форм</p>
+        </header>
+        <div class="wrap">
+            <div class="content-left">
+                <h3><strong>ngx-typed-forms</strong></h3>
+                <p><a href="https://github.com/Quramy/ngx-typed-forms">https://github.com/Quramy/ngx-typed-forms</a></p>
+            </div>
+            <div class="content-left">
+                    <pre>
+interface ComplexForm {
+  name: {
+    first: string;
+    last: string;
+  };
+  age: number;
+  favoriteDishes: string[];
+};
+
+const form = formBuilder.group&lt;ComplexForm&gt;({
+  name: fb.group({
+    first: 'Yosuke',
+    last: 'Kurami'
+  }),
+  age: 32,
+  favoriteDishes: fb.array&lt;string&gt;(
+    [fb.control('favoriteDish')]
+  ),
+});</pre>
+            </div>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Работа с большими формами</h2>
+            <p class="text-context">Управление состоянием контролов</p>
+        </header>
+        <div class="wrap">
+            <div class="content-left">
+                <pre>
+@Injectable()
+export class FgisFormBuilder extends FormBuilder {
+  constructor() {
+    super();
+  }
+  control(
+    formState: Object,
+    validator?: ValidatorFn | ValidatorFn[] | null,
+    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+  ): FormControl {
+    return new FgisFormControl(
+      formState,
+      validator,
+      asyncValidator
+    );
+  }
+}</pre>
+            </div>
+            <div class="content-left">
+                    <pre>
+@Injectable()
+export class FormFactory {
+  constructor(private fb: FormBuilder) {
+  }
+  makeForm(model: Model): FormGroup {
+    return this.fb.group({
+      id: model.id,
+      name: model.name
+    });
+  }
+}</pre>
+            </div>
+
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Работа с большими формами</h2>
+            <p class="text-context">Валидация</p>
+        </header>
+        <div class="wrap">
+                <pre>
+export function isRequiredProvided(
+ pathFromRoot: string,
+ operator: string,
+ value: any | any[],
+ key?: string
+): ValidatorFn {
+    // ...code
+}</pre>
+            <p class="text-intro"><strong>[applicant.person.snils]</strong></p>
+            <pre>
+createPersonForm(person: Person): FromGroup {
+  return this.fb.group({
+    snils: [person.snils, isRequiredProvided('applicant.idType', 'equal', {id: ApplicantType.IP}, 'id')
+  })
+}
+                </pre>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Работа с большими формами</h2>
+            <p class="text-context">Валидация</p>
+        </header>
+        <div class="wrap">
+                <pre>
+export function conditionalValidator(conditional: ConditionalFn, validator: ValidatorFn): ValidatorFn {
+  return (control: AbstractControl) => {
+     if (conditional()) {
+        return validator(control)
+     }
+     return Validators.nullValidator(control);
+  }
+}</pre>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Работа с большими формами</h2>
+            <p class="text-context">Валидация</p>
+        </header>
+        <div class="wrap">
+            <div class="content-left">
+                <pre>
+function isRequiredSnils(idTypeControl: FormControl): ConditionalFn {
+  return () => {
+    const idType = idTypeControl.value && idTypeControl.value.id;
+    return idType === ApplicantType.IP
+  }
+}</pre>
+                <pre>
+createPersonForm(person: Person): FromGroup {
+  const group = createPerson(person);
+  setPersonValidators(group);
+  return group;
+}</pre>
+            </div>
+            <div class="content-left">
+                <pre>
+private createPerson(person): FormGroup {
+  const group = this.fb.group({
+    snils: [person.snils]
+  });
+  return group;
+}
+private setPersonValidators(group): FormGroup {
+  const form = getRootForm();
+  const typeCtrl =
+          form.get('applicant.idType');
+  group.get('snils').setValidators(
+    conditionalValidator(
+      isRequiredSnils(typeCtrl),
+      Validators.required
+    )
+  );
+  return group;
+}</pre>
+            </div>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Большие компоненты</h2>
+        </header>
+        <div class="wrap">
+            <div class="toc content-left">
+                <h2>Проблемы:</h2>
+                <ul class="text-intro">
+                    <li>Сложность в поддержке</li>
+                    <li>Повторное использование почти невозможно</li>
+                    <li>Дублирование кода</li>
+                </ul>
+            </div>
+            <div class="toc content-left">
+                <h2>Решения:</h2>
+                <ul class="text-intro">
+                    <li>Выделение целостной функциональности в отдельную структурную единицу (директива, компонент,
+                        сервис)
+                    </li>
+                    <li>Предварительное планирование, обсуждение</li>
+                    <li>Разделение компонентов на умные и глупые</li>
+                    <li>Настройка линтеров</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Большие компоненты</h2>
+            <p class="text-context">Типы компонентов</p>
+        </header>
+        <div>
+            <div class="content-left">
+                <h3>Smart / Container</h3>
+                <pre>
+constructor(private store: Store, private router: Router) {
+}</pre>
+            </div>
+            <div class="content-left">
+                <h3>Dumb / Presentational</h3>
+                <pre>
+@Input() todo: Todo;
+@Output() selected(): EventEmitter&lt;Todo&gt;;
+                    </pre>
+                <ul class="toc">
+                    <li>
+                        <h4>
+                            <svg class="fa-plus color-green">
+                                <use xlink:href="#fa-plus"></use>
+                            </svg>
+                            Переиспользуемость
+                        </h4>
+                    </li>
+                    <li>
+                        <h4>
+                            <svg class="fa-plus color-green">
+                                <use xlink:href="#fa-plus"></use>
+                            </svg>
+                            Тестируемость
+                        </h4>
+                    </li>
+                    <li>
+                        <h4>
+                            <svg class="fa-plus color-green">
+                                <use xlink:href="#fa-plus"></use>
+                            </svg>
+                            Независимость от проекта/бизнес-кейса
+                        </h4>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Большие компоненты</h2>
+            <p class="text-context">Компонент адреса</p>
+        </header>
+        <div class="grid vertical-align">
+            <div class="column">
+                <img class="border" src="./img/address-view.JPG" alt="Представление компонента адреса"
+                     style="width: 429px">
+            </div>
+            <figure class="column">
+                <img src="./img/address-modal.jpg" alt="Деструктуризация компонента адреса" class="size-100">
+            </figure>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Организация модулей реестров</h2>
+            <p class="text-context">Структура реестра</p>
+        </header>
+        <div class="wrap">
+            <div class="content-left">
+                <code>
+                    <ul class="folders">
+                        <li>
+                            <svg class="fa-folder">
+                                <use xlink:href="#fa-folder"></use>
+                            </svg>
+                            ral<span class="comment">папка реестра</span>
+                            <ul>
+                                <li>
+                                    <svg class="fa-folder">
+                                        <use xlink:href="#fa-folder"></use>
+                                    </svg>
+                                    table-view<span class="comment">витрина</span>
+                                </li>
+                                <li>
+                                    <svg class="fa-folder">
+                                        <use xlink:href="#fa-folder"></use>
+                                    </svg>
+                                    card-view<span class="comment">просмотр карточки</span>
+                                    <ul>
+                                        <li>
+                                            <svg class="fa-folder">
+                                                <use xlink:href="#fa-folder"></use>
+                                            </svg>
+                                            view-accreditation <span class="comment">вкладки формы</span>
+                                        </li>
+                                        <li>
+                                            <svg class="fa-folder">
+                                                <use xlink:href="#fa-folder"></use>
+                                            </svg>
+                                            view-applicant <span class="comment">вкладки формы</span>
+                                        </li>
+                                        <li>
+                                            <svg class="fa-file-o">
+                                                <use xlink:href="#fa-file-o"></use>
+                                            </svg>
+                                            card-view.component.ts <span class="comment">контейнер для всей формы</span>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <svg class="fa-folder">
+                                        <use xlink:href="#fa-folder"></use>
+                                    </svg>
+                                    card-edit<span class="comment">редактирование карточки</span>
+                                </li>
+                                <li>
+                                    <svg class="fa-folder">
+                                        <use xlink:href="#fa-folder"></use>
+                                    </svg>
+                                    shared<span class="comment">общее для реестра</span>
+                                    <ul>
+                                        <li>
+                                            <svg class="fa-folder">
+                                                <use xlink:href="#fa-folder"></use>
+                                            </svg>
+                                            models
+                                        </li>
+                                        <li>
+                                            <svg class="fa-folder">
+                                                <use xlink:href="#fa-folder"></use>
+                                            </svg>
+                                            constants
+                                        </li>
+                                        <li>
+                                            <svg class="fa-folder">
+                                                <use xlink:href="#fa-folder"></use>
+                                            </svg>
+                                            directives
+                                        </li>
+                                        <li>
+                                            <svg class="fa-folder">
+                                                <use xlink:href="#fa-folder"></use>
+                                            </svg>
+                                            services
+                                        </li>
+                                        <li>
+                                            <svg class="fa-folder">
+                                                <use xlink:href="#fa-folder"></use>
+                                            </svg>
+                                            ...
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <svg class="fa-file-o">
+                                        <use xlink:href="#fa-file-o"></use>
+                                    </svg>
+                                    ral.module.ts<span class="comment">точка сбора всего реестра</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <svg class="fa-folder">
+                                <use xlink:href="#fa-folder"></use>
+                            </svg>
+                            shared<span class="comment">общее для всего приложения</span>
+                        </li>
+                        <li>
+                            <svg class="fa-file-o">
+                                <use xlink:href="#fa-file-o"></use>
+                            </svg>
+                            app.module.ts <span class="comment">входная точка приложения</span>
+                        </li>
+                    </ul>
+                </code>
+            </div>
+            <div class="content-left">
+                <figure>
+                    <img src="./img/passport.JPG" alt="Просмотр паспорта аккредитованного лица" class="border">
+                </figure>
+            </div>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Организация модулей реестров</h2>
+            <p class="text-context"></p>
+        </header>
+        <div class="grid">
+            <div class="column">
+                <img src="./img/graf_before.svg" alt="Зависимости реестров СРД и РДС. Текущие" style="height: 400px">
+            </div>
+            <div class="column">
+                <img src="./img/graf.svg" alt="Зависимости реестров СРД и РДС. Предлагаемые" style="height: 400px">
+            </div>
+        </div>
+    </section>
+    <section>
+        <header>
+            <h2>Организация модулей реестров</h2>
+            <p class="text-context">Предлагаемая структура</p>
+        </header>
+        <div class="wrap">
+            <div class="grid">
+                <div class="size-60">
+                    <code>
+                        <ul class="folders">
+                            <li>
+                                <svg class="fa-folder">
+                                    <use xlink:href="#fa-folder"></use>
+                                </svg>
+                                apps
+                                <ul>
+                                    <li>
+                                        <svg class="fa-folder">
+                                            <use xlink:href="#fa-folder"></use>
+                                        </svg>
+                                        rds <span class="comment">самостоятельное приложение</span>
+                                    </li>
+                                    <li>
+                                        <svg class="fa-folder">
+                                            <use xlink:href="#fa-folder"></use>
+                                        </svg>
+                                        rds-e2e <span class="comment">интеграционное тестирование</span>
+                                    </li>
+                                    <li>
+                                        <svg class="fa-folder">
+                                            <use xlink:href="#fa-folder"></use>
+                                        </svg>
+                                        srd
+                                    </li>
+                                    <li>
+                                        <svg class="fa-folder">
+                                            <use xlink:href="#fa-folder"></use>
+                                        </svg>
+                                        srd-e2e
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <svg class="fa-folder">
+                                    <use xlink:href="#fa-folder"></use>
+                                </svg>
+                                libs
+                                <ul>
+                                    <li>
+                                        <svg class="fa-folder color-orange">
+                                            <use xlink:href="#fa-folder"></use>
+                                        </svg>
+                                        rds<span class="comment">для группировки</span>
+                                        <ul>
+                                            <li>
+                                                <svg class="fa-folder color-orange">
+                                                    <use xlink:href="#fa-folder"></use>
+                                                </svg>
+                                                filters
+                                                <ul>
+                                                    <li>
+                                                        <svg class="fa-folder">
+                                                            <use xlink:href="#fa-folder"></use>
+                                                        </svg>
+                                                        <span class="color-green">feature</span>-filters <span class="comment">библиотека</span>
+                                                        <ul>
+                                                            <li>
+                                                                <svg class="fa-file-o">
+                                                                    <use xlink:href="#fa-file-o"></use>
+                                                                </svg>
+                                                                rds-feature-filters.module.ts
+                                                            </li>
+                                                            <li>
+                                                                <svg class="fa-file-o">
+                                                                    <use xlink:href="#fa-file-o"></use>
+                                                                </svg>
+                                                                index.ts <span class="comment">публичное API библиотеки</span>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <svg class="fa-folder">
+                                                            <use xlink:href="#fa-folder"></use>
+                                                        </svg>
+                                                        <span class="color-green">ui</span>-filters
+                                                    </li>
+                                                    <li>
+                                                        <svg class="fa-folder">
+                                                            <use xlink:href="#fa-folder"></use>
+                                                        </svg>
+                                                        <span class="color-green">data-access</span>-filters
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <svg class="fa-folder color-orange">
+                                            <use xlink:href="#fa-folder"></use>
+                                        </svg>
+                                        srd
+                                    </li>
+                                    <li>
+                                        <svg class="fa-folder color-orange">
+                                            <use xlink:href="#fa-folder"></use>
+                                        </svg>
+                                        shared
+                                        <ul>
+                                            <li>
+                                                <svg class="fa-folder color-orange">
+                                                    <use xlink:href="#fa-folder"></use>
+                                                </svg>
+                                                rds-srd
+                                                <ul>
+                                                    <li>
+                                                        <svg class="fa-folder">
+                                                            <use xlink:href="#fa-folder"></use>
+                                                        </svg>
+                                                        <span class="color-green">feature</span>-products
+                                                    </li>
+                                                    <li>
+                                                        <svg class="fa-folder">
+                                                            <use xlink:href="#fa-folder"></use>
+                                                        </svg>
+                                                        <span class="color-green">ui</span>-products
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <svg class="fa-folder">
+                                                    <use xlink:href="#fa-folder"></use>
+                                                </svg>
+                                                <span class="color-green">data-access</span>-auth
+                                            </li>
+                                            <li>
+                                                <svg class="fa-folder">
+                                                    <use xlink:href="#fa-folder"></use>
+                                                </svg>
+                                                <span class="color-green">util</span>-formatting
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </code>
+                </div>
+                <div class="column">
+                    <ul class="toc">
+                        <li>
+                            <h4>
+                                <svg class="fa-plus color-green">
+                                    <use xlink:href="#fa-plus"></use>
+                                </svg>
+                                Независимая сборка приложений
+                            </h4>
+                        </li>
+                        <li>
+                            <h4>
+                                <svg class="fa-plus color-green">
+                                    <use xlink:href="#fa-plus"></use>
+                                </svg>
+                                Ленивая загрузка (preloadingStategy)
+                            </h4>
+                        </li>
+                        <li>
+                            <h4>
+                                <svg class="fa-plus color-green">
+                                    <use xlink:href="#fa-plus"></use>
+                                </svg>
+                                Легко переиспользовать
+                            </h4>
+                        </li>
+                        <li>
+                            <h4>
+                                <svg class="fa-plus color-green">
+                                    <use xlink:href="#fa-plus"></use>
+                                </svg>
+                                Удобная навигация
+                            </h4>
+                        </li>
+                        <li>
+                            <h4>
+                                <svg class="fa-plus color-green">
+                                    <use xlink:href="#fa-plus"></use>
+                                </svg>
+                                Удобная настройка линтеров
+                            </h4>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section>
+        <h1 class="aligncenter text-landing">Спасибо за внимание</h1>
+        <div class="wrap size-50" style="margin-top: 50px">
+            <ol class="text-subtitle">
+                <li>
+                    <a class="text-symbols" href="https://github.com/Quramy/ngx-typed-forms">ngx-typed-forms</a>
+                    <div class="text-info">Обертка для типизации реактивных форм</div>
+                </li>
+                <li>
+                    <a class="text-symbols"
+                       href="https://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why/">
+                        Smart vs Presentational Components
+                    </a>
+                    <div class="text-info">Статья из серии Архитектура Ангуляра</div>
+                </li>
+                <li>
+                    <a class="text-symbols" href="https://nrwl.io/">Nrwl.io</a>
+                    <div class="text-info">Набор инструментов для enterprise Angular приложений</div>
+                </li>
+            </ol>
+        </div>
+    </section>
+</article>
+
+<script src="./node_modules/webslides/static/js/webslides.js"></script>
+<script src="./highlight/highlight.pack.js"></script>
+<script>
+    window.ws = new WebSlides();
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+    });
+</script>
+<!-- OPTIONAL - svg-icons.js (fontastic.me - Font Awesome as svg icons) -->
+<script defer src="./node_modules/webslides/static/js/svg-icons.js"></script>
 </body>
 </html>

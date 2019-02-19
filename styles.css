@@ -1,0 +1,49 @@
+.folders,
+.folders ul {
+    list-style: none;
+    background: white;
+    font-size: 30px;
+}
+.folders li {
+    position: relative;
+}
+.folders svg {
+    position: absolute;
+    left: -1em;
+    top: 3px;
+    color: gray;
+}
+.folders .color-orange {
+    color: orange;
+}
+
+.color-green {
+    color: green;
+}
+
+.comment {
+    color: darkolivegreen;
+    margin-left: 50px;
+    position: relative;
+}
+.comment:before {
+    position: absolute;
+    content: '//';
+    display: inline-block;
+    left: -1.5em;
+    font-weight: bold;
+}
+
+/**
+overrides
+ */
+.text-context {
+    line-height: 2.8rem;
+}
+pre {
+    font-size: 30px;
+    line-height: 35px;
+}
+.toc {
+    background: transparent;
+}
