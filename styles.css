@@ -38,7 +38,8 @@
 overrides
  */
 .text-context {
-    line-height: 2.8rem;
+    line-height: 30px;
+    font-size: 25px;
 }
 pre {
     font-size: 30px;
@@ -46,4 +47,7 @@ pre {
 }
 .toc {
     background: transparent;
+}
+section, .slide {
+    padding-top: 14rem;
 }
